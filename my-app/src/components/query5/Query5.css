@@ -1,0 +1,194 @@
+.query5 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.query5Box {
+    width: 50%;
+    height: 40%;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.744);
+    /* Semi-transparent background */
+    border-radius: 15px;
+    /* Rounded corners */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    /* Shadow for depth */
+    backdrop-filter: blur(10px);
+    /* Blur effect on the background */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    /* Subtle border */
+    color: #fff;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    padding-top: 50px;
+}
+
+.query5Up,
+.query5Down {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+}
+
+.query5Middle {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.firstPart{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.SecondPart {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.query5Desc {
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: -20px;
+    color: #455a64;
+}
+
+.query5Line {
+    width: 80%;
+    /* Full width of the container */
+    height: 1px;
+    /* Thin line */
+    background-color: #263238;
+    /* Light gray color */
+    margin: 10px 0;
+    /* Add spacing above and below the line */
+    border: none;
+}
+
+.query5Form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: -10px;
+    gap: 40px;
+}
+
+
+
+.minLat,
+.maxLat,
+.minLon,
+.maxLon {
+    flex-direction: column;
+    display: flex;
+    gap: 10px;
+}
+
+.Date{
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+    gap: 10px;
+}
+
+.Date,
+.minLat,
+.maxLat,
+.minLon,
+.maxLon label {
+    font-size: 15px;
+    font-weight: 700;
+    color: #455a64;
+}
+
+.DateInput,
+.minLatInput,
+.maxLatInput,
+.minLonInput,
+.maxLonInput {
+    height: 40px;
+    width: 150px;
+    border-radius: 10px;
+    border: none;
+    background-color: white;
+    color: #455a64;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.query5SubmitButton {
+    margin-top: 10px;
+    height: 30px;
+    width: 100px;
+    border-radius: 10px;
+    border: none;
+    background-color: #455a64;
+    color: white;
+    font-size: 18px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.query5SubmitButton:hover {
+    background-color: #546e7a;
+}
+
+.query5SubmitButton:active {
+    transform: translateY(0.1em);
+}
+
+.query5ResultsTitle {
+    color: #263238;
+}
+.resultsTableWrapper {
+    width: 100%;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 20px;
+    border: 1px solid #263238;
+    margin-right: 90px;
+}
+
+.resultsTable {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.resultsTable th,
+.resultsTable td {
+    padding: 10px;
+    border: 1px solid #b0bec5;
+}
+
+.resultsTable td {
+    background-color: #78909c;
+}
+
+.resultsTable th {
+    background-color: #263238;
+    font-weight: bold;
+    text-transform: uppercase;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.query5Error {
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+}

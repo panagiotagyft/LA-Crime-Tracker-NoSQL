@@ -1,0 +1,160 @@
+.query11 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.query11Box {
+    width: 50%;
+    height: auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.744);
+    border-radius: 15px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #455a64;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    padding-top: 30px;
+}
+
+.query11Up,
+.query11Down,
+.query11Middle {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+}
+
+.query11Desc {
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: -20px;
+    color: #455a64;
+}
+
+.query11Line {
+    width: 80%;
+    height: 1px;
+    background-color: #263238;
+    margin: 10px 0;
+    border: none;
+}
+
+.query11Form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: -10px;
+    gap: 40px;
+}
+
+/* .categorySelect,
+.startDate,
+.endDate,
+.rptDistInput {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+} */
+
+.query11CspecificCrime {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.query11CspecificCrime label {
+    font-size: 15px;
+    font-weight: 700;
+    color: #455a64;
+}
+
+
+
+.crmCDquery11Input {
+    height: 40px;
+    width: 200px;
+    border-radius: 10px;
+    border: none;
+    background-color: white;
+    color: #455a64;
+    font-size: 15px;
+    font-weight: 800;
+    padding: 5px 10px;
+}
+
+.query11SubmitButton {
+    margin-top: 10px;
+    height: 30px;
+    width: 100px;
+    border-radius: 10px;
+    border: none;
+    background-color: #455a64;
+    color: white;
+    font-size: 18px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.query11SubmitButton:hover {
+    background-color: #546e7a;
+}
+
+.query11SubmitButton:active {
+    transform: translateY(0.1em);
+}
+
+.resultsTableWrapper {
+    width: 100%;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 20px;
+    border: 1px solid #263238;
+    margin-right: 90px;
+}
+
+.resultsTable {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.resultsTable th,
+.resultsTable td {
+    padding: 10px;
+    border: 1px solid #b0bec5;
+}
+
+.resultsTable td {
+    background-color: #78909c;
+}
+
+.resultsTable th {
+    background-color: #263238;
+    font-weight: bold;
+    text-transform: uppercase;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.query11ResultsTitle {
+    color: #263238;
+}
+
+.query11Error {
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+}

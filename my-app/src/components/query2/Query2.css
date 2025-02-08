@@ -1,0 +1,151 @@
+.query2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.query2Box {
+    width: 50%;
+    height: 40%;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.744);
+    /* Semi-transparent background */
+    border-radius: 15px;
+    /* Rounded corners */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    /* Shadow for depth */
+    backdrop-filter: blur(10px);
+    /* Blur effect on the background */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    /* Subtle border */
+    color: #fff;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    padding-top: 50px;
+}
+
+.query2Up,
+.query2Down,
+.query2Middle {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+}
+
+.query2Desc {
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: -20px;
+    color: #455a64;
+}
+
+.query2Line {
+    width: 80%;
+    /* Full width of the container */
+    height: 1px;
+    /* Thin line */
+    background-color: #263238;
+    margin: 10px 0;
+    /* Add spacing above and below the line */
+    border: none;
+}
+
+.query2Form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: -10px;
+    gap: 40px;
+}
+
+.startTime2, .endTime2, .crmCDquery2 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.endTime2, .startTime2, .crmCDquery2 label {
+    font-size: 15px;
+    font-weight: 700;
+    color: #455a64;
+}
+
+.startTimeInput2, .endTimeInput2, .crmCDquery2Input{
+    height: 40px;
+    width: 150px;
+    border-radius: 10px;
+    border: none;
+    background-color: white;
+    color: #455a64;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.query2SubmitButton {
+    height: 30px;
+    width: 100px;
+    border-radius: 10px;
+    border: none;
+    background-color: #455a64;
+    color: white;
+    font-size: 18px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.query2SubmitButton:hover {
+    background-color: #546e7a;
+}
+
+.query2SubmitButton:active {
+    transform: translateY(0.1em);
+}
+
+.resultsTableWrapper2 {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 20px;
+    border: 1px solid #263238;
+}
+
+.resultsTable2 {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.resultsTable2 th,
+.resultsTable2 td {
+    padding: 10px;
+    border: 1px solid #b0bec5;
+}
+
+.resultsTable2 td {
+    background-color: #78909c;
+}
+
+.resultsTable2 th {
+    background-color: #263238;
+    font-weight: bold;
+    text-transform: uppercase;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.query2ResultsTitle {
+    color: #263238;
+}
+
+.query2Error {
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+}

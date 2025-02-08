@@ -1,0 +1,19 @@
+.queries {
+    background: linear-gradient(#eceff1, #37474f);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.queriesWrapper {
+    width: 100%;
+    padding-top: 150px;
+}
+
+.queriesForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
