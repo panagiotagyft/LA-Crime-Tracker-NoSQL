@@ -112,7 +112,7 @@ export default function Query1() {
                     <tbody>
                       {results.map((result, index) => (
                         <tr key={index}>
-                          <td>{result.crm_cd}</td>
+                          <td>{Array.isArray(result._id) ? result._id.join(", ") : result._id}</td> {/* Handle both cases */}
                           <td>{result.report_count}</td>
                         </tr>
                       ))}
