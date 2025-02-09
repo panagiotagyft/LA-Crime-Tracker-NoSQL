@@ -165,8 +165,8 @@ export default function Query2() {
                     <tbody>
                       {results.map((result, index) => (
                         <tr key={index}>
-                          <td>{result["Reported Day"]}</td>
-                          <td>{result["Total number of reports"]}</td>
+                          <td>{Array.isArray(result._id) ? result._id.join(", ") : result._id}</td> {/* Handle both cases */}
+                          <td>{result.total_reports}</td>
                         </tr>
                       ))}
                     </tbody>
