@@ -85,14 +85,16 @@ CORS_ALLOW_ALL_ORIGINS = True  # Μόνο για ανάπτυξη
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'crime_tracker',  # Όνομα της βάσης
-        'USER': 'crime_user',  # Όνομα χρήστη
-        'PASSWORD': '123098giota',  # Κωδικός χρήστη
-        'HOST': '127.0.0.1',  # Αν είναι σε τοπικό server
-        'PORT': '5432',  # Το προεπιλεγμένο port της PostgreSQL
+        'ENGINE': 'djongo',  # Χρησιμοποιούμε τη βιβλιοθήκη djongo
+        'NAME': 'crime_tracker',  # Όνομα βάσης δεδομένων
+        'ENFORCE_SCHEMA': False,  # Απενεργοποίηση αυστηρού ελέγχου σχήματος (προαιρετικό)
+        'CLIENT': {
+            'host': 'mongodb://localhost:27017',  # URL της MongoDB
+        },
     }
 }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
