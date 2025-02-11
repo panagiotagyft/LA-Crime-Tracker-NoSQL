@@ -9,7 +9,7 @@ class DropdownOptionsView(APIView):
 
         # Σύνδεση στη MongoDB
         client = MongoClient("mongodb://localhost:27017/")
-        db = client["crime_tracker"]
+        db = client["NoSQL-LA-CRIME"]
 
         try:
             if option_type == "area_codes":
@@ -30,6 +30,8 @@ class DropdownOptionsView(APIView):
                 data_list = db.crime_reports.distinct("victim.sex")
             elif option_type == "victims_descent":
                 data_list = db.crime_reports.distinct("victim.descent")
+            elif option_type == "office_name":
+                data_list = db.upvotes.distinct("name")
             else:
                 return Response({"error": "Invalid option type"}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -48,7 +50,7 @@ class GetCodeDescriptionView(APIView):
             return Response({"error": "Invalid parameters"}, status=status.HTTP_400_BAD_REQUEST)
 
         client = MongoClient("mongodb://localhost:27017/")
-        db = client["crime_tracker"]
+        db = client["NoSQL-LA-CRIME"]
 
         try:
             query = {}
@@ -87,7 +89,7 @@ class SearchDRNumbersView(APIView):
             return Response({"dr_numbers": []}, status=status.HTTP_200_OK)
 
         client = MongoClient("mongodb://localhost:27017/")
-        db = client["crime_tracker"]
+        db = client["NoSQL-LA-CRIME"]
 
         try:
             results = db.crime_reports.find(
@@ -112,7 +114,7 @@ class GenerateDRNOView(APIView):
             return Response({"error": "Area ID and date are required"}, status=status.HTTP_400_BAD_REQUEST)
 
         client = MongoClient("mongodb://localhost:27017/")
-        db = client["crime_tracker"]
+        db = client["NoSQL-LA-CRIME"]
 
         try:
             date_rptd = datetime.strptime(date_rptd, "%Y-%m-%d")
@@ -142,7 +144,7 @@ class GetRecordByDRNOView(APIView):
             return Response({"error": "DR_NO is required"}, status=400)
 
         client = MongoClient("mongodb://localhost:27017/")
-        db = client["crime_tracker"]
+        db = client["NoSQL-LA-CRIME"]
 
         try:
             record = db.crime_reports.find_one({"dr_no": dr_no})

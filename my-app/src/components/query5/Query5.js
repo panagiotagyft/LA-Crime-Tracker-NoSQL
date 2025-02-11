@@ -1,10 +1,12 @@
 import './Query5.css';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function Query4() {
-  const [isFormVisible, setIsFormVisible] = useState(false);
 
+export default function Query5() {
+  
+  const [isFormVisible, setIsFormVisible] = useState(false);
+  
   const [results, setResults] = useState([]);
   const [error, setError] = useState(null);
 
@@ -12,37 +14,12 @@ export default function Query4() {
     setIsFormVisible((prev) => !prev);
   };
 
-  const [params, setParameters] = useState({
-      date: "",
-      min_lat: "",
-      max_lat: "",
-      min_lon: "",
-      max_lon: "",
-  });
-
-
-  const handleChange = (e) => {
-      const { name, value } = e.target;
-      setParameters((prevParams) => ({
-          ...prevParams,
-          [name]: value, // Updates the correct state key dynamically
-      }));
-  };
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null); // Clearing previous errors.
+
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/db_manager/query5/', {
-        params: {
-            date: params.date,
-            min_lat: params.min_lat,
-            max_lat: params.max_lat,
-            min_lon: params.min_lon,
-            max_lon: params.max_lon,
-        },
-      });
+        const response = await axios.get('http://127.0.0.1:8000/api/db_manager/query5/');
 
       if (response.data.message) {
         setError(response.data.message); // Display a message if no data is available.
@@ -57,14 +34,6 @@ export default function Query4() {
 
   const handleReset = () => {
   
-    setParameters({
-        date: "",
-        min_lat: "",
-        max_lat: "",
-        min_lon: "",
-        max_lon: "",
-    });
-    
     setResults([]);
     setIsFormVisible(false);
     setError(null);
@@ -72,79 +41,64 @@ export default function Query4() {
 
   return (
     <div className='query5'>
+
       <div className='query5Box'>
+        
         <div className='query5Up' onClick={toggleFormVisibility} style={{ cursor: 'pointer' }}>
-          <span className='query5Desc'>5. Find the most common “Crm Cd” in a specified bounding box (as designated by GPS-coordinates) for a specific day.</span>
+          <span className='query5Desc'>5.  Find the types of weapon that have been used for the same crime “Crm Cd” in more than one areas.</span>
         </div>
+
         <hr className='query5Line' />
         {isFormVisible && (
           <>
-            <form className='query5Form' onSubmit={handleSubmit}>
-                <div className='query5Middle'>
-                <div className='firstPart'>
-                <div className='Date'>
-                  <label htmlFor="Date">Date</label>
-                  <input className='DateInput' type="date" id="Date" name="date" value={params.date} onChange={handleChange} />
-                </div>
-                </div>
-                <div className='SecondPart'>            
-                <div className='minLat'>
-                  <label htmlFor="minLat">Min Latitude</label>
-                  <input className='minLatInput' type="number" id="minLat" name="min_lat" value={params.min_lat} onChange={handleChange} />
-                </div>
-                <div className='maxLat'>
-                  <label htmlFor="maxLat">Max Latitude</label>
-                  <input className='maxLatInput' type="number" id="maxLat" name="max_lat" value={params.max_lat} onChange={handleChange} />
-                </div>
-         
-                <div className='minLon'>
-                  <label htmlFor="minLon">Min Longitude </label>
-                  <input className='minLonInput' type="number" id="minLon" name="min_lon" value={params.min_lon} onChange={handleChange} />
-                </div>
-                <div className='maxLon'>
-                  <label htmlFor="maxLon">Max Longitude </label>
-                  <input className='maxLonInput' type="number" id="maxLon" name="max_lon" value={params.max_lon} onChange={handleChange} />
-                </div>
-                </div>
-              </div>
-              {!results.length > 0 &&(
-              <div className='query5Down'>
-                <button type="submit" className='query4SubmitButton'>Submit</button>
-                </div>)}
-              
-              </form>
-           
-          {error && <div className='query5Error'>{error}</div>}
+            {!results.length > 0 &&(
+            <form className='query5Down' onSubmit={handleSubmit}>
+                <button type="submit" className='query5SubmitButton'>Submit</button>
+            </form>
+            )}
+            
+           {error && <div className='query5Error'>{error}</div>}
             {results.length > 0 && (
               <div className='query5Results'>
                 <h4 className='query5ResultsTitle'>Results:</h4>
-                <div className="resultsTableWrapper">
-                  <table className="resultsTable">
+                <div className="resultsTableWrapper2">
+                  <table className="resultsTable2">
                     <thead>
                       <tr>
-                        <th>The most frequent crime</th>
-                        <th>Crime Count</th>
+                        <th>Crime Code</th>
+                        <th>Weapons</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {results.map((result, index) => (
-                        <tr key={index}>
-                          <td>{result["crime_code"]}</td>
-                          <td>{result["crime_count"]}</td>
-                        </tr>
+                      {results
+                        .sort((a, b) => a.crime_cd - b.crime_cd) // Ταξινόμηση crime codes σε αύξουσα σειρά
+                        .map((result, index) => (
+                          <tr key={index}>
+                            <td>{result.crime_cd}</td>
+                            <td>
+                              <div className="weaponsList">  {/* Wrapper για το overflow */}
+                                <ul>
+                                  {result.weapons.map((weapon, i) => (
+                                    <li key={i}>{weapon}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            </td>
+                          </tr>
                       ))}
                     </tbody>
                   </table>
                 </div>
               </div>
             )}
-
-              {results.length > 0 && (
-                <button onClick={handleReset} className="query5SubmitButton">Reset</button>
-              )}
+            {results.length > 0 && (
+              <button onClick={handleReset} className="query5SubmitButton">Reset</button>
+            )}
           </>
         )}
+
       </div>
+
     </div>
-  );
+  )
 }

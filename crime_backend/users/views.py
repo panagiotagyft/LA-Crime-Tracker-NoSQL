@@ -7,7 +7,7 @@ from datetime import datetime
 
 # Σύνδεση με MongoDB
 client = MongoClient("mongodb://localhost:27017/")
-db = client["crime_tracker"]
+db = client["NoSQL-LA-CRIME"]
 users_collection = db["users"]
 tokens_collection = db["tokens"]
 

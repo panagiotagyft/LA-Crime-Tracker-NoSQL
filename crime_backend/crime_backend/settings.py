@@ -86,7 +86,7 @@ CORS_ALLOW_ALL_ORIGINS = True  # Μόνο για ανάπτυξη
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',  # Χρησιμοποιούμε τη βιβλιοθήκη djongo
-        'NAME': 'crime_tracker',  # Όνομα βάσης δεδομένων
+        'NAME': 'NoSQL-LA-CRIME',  # Όνομα βάσης δεδομένων
         'ENFORCE_SCHEMA': False,  # Απενεργοποίηση αυστηρού ελέγχου σχήματος (προαιρετικό)
         'CLIENT': {
             'host': 'mongodb://localhost:27017',  # URL της MongoDB
