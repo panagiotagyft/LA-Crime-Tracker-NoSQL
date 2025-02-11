@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from datetime import datetime
 
 client = MongoClient("mongodb://localhost:27017/")
-db = client["crime_tracker"]
+db = client["NoSQL-LA-CRIME"]
 crime_collection = db["crime_reports"]
 
 class Query2View(APIView):
@@ -14,15 +14,16 @@ class Query2View(APIView):
             return datetime.strptime(time_str, '%H:%M').strftime('%H:%M:%S') if time_str else None
 
 
-        start_time = request.query_params.get('startTime')  # π.χ., "14:00"
-        end_time = request.query_params.get('endTime')  # π.χ., "18:00"
+        start_time = request.query_params.get('startTime')  
+        end_time = request.query_params.get('endTime') 
         crime_code = int(request.query_params.get('crmCd'))
         
         if not start_time or not end_time or not crime_code:
             return Response({"error": "Start time, end time, and crime code are required!"}, status=400)
-        start_time = parse_time(start_time)  # π.χ., "14:00"
+        
+        start_time = parse_time(start_time)  
         end_time = parse_time(end_time) 
-        print(start_time)
+        
         try:
 
             # Aggregation query
@@ -39,8 +40,7 @@ class Query2View(APIView):
             ]
 
             results = list(crime_collection.aggregate(pipeline))
-            print(results)
-            # Επιστρέφουμε τα αποτελέσματα σε JSON
+           
             return Response(results, status=200)
 
         except Exception as e:
