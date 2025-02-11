@@ -45,7 +45,7 @@ export default function Query5() {
       <div className='query5Box'>
         
         <div className='query5Up' onClick={toggleFormVisibility} style={{ cursor: 'pointer' }}>
-          <span className='query5Desc'>5.  Find the types of weapon that have been used for the same crime “Crm Cd” in more than one areas.</span>
+          <span className='query5Desc'>5. Find the types of weapon that have been used for the same crime “Crm Cd” in more than one areas.</span>
         </div>
 
         <hr className='query5Line' />
@@ -71,12 +71,12 @@ export default function Query5() {
                     </thead>
                     <tbody>
                       {results
-                        .sort((a, b) => a.crime_cd - b.crime_cd) // Ταξινόμηση crime codes σε αύξουσα σειρά
+                        .sort((a, b) => a.crime_cd - b.crime_cd) 
                         .map((result, index) => (
                           <tr key={index}>
                             <td>{result.crime_cd}</td>
                             <td>
-                              <div className="weaponsList">  {/* Wrapper για το overflow */}
+                              <div className="weaponsList">  
                                 <ul>
                                   {result.weapons.map((weapon, i) => (
                                     <li key={i}>{weapon}</li>
