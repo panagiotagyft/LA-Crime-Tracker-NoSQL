@@ -3,25 +3,28 @@ from rest_framework.response import Response
 from pymongo import MongoClient
 from datetime import datetime
 
-# Σύνδεση στη MongoDB
+# Connecting to MongoDB
 client = MongoClient("mongodb://localhost:27017/")
-db = client["crime_tracker"]
-crime_collection = db["crime_reports"]
+db = client["NoSQL-LA-CRIME"]
+
 
 class Query1View(APIView):
     def get(self, request):
-        start_time = request.query_params.get('startTime')  # π.χ., "14:00"
-        end_time = request.query_params.get('endTime')  # π.χ., "18:00"
+        
+        start_time = request.query_params.get('startTime')  
+        end_time = request.query_params.get('endTime')  
 
         if not start_time or not end_time:
             return Response({"error": "Start time and end time are required."}, status=400)
 
+        def parse_time(time_str):
+            return datetime.strptime(time_str, '%H:%M').strftime('%H:%M:%S') if time_str else None
+
+        start_time = parse_time(start_time)  
+        end_time = parse_time(end_time) 
+
         try:
-            # Μετατροπή της ώρας σε ακέραιες τιμές για τη σύγκριση
-            #start_time = int(start_time.replace(":", ""))
-            ##end_time = int(end_time.replace(":", ""))
-            print(start_time, end_time)
-            # MongoDB Aggregation Pipeline
+
             pipeline = [
                 {
                     "$unwind": "$crime_codes" 
@@ -33,17 +36,16 @@ class Query1View(APIView):
                 },
                 {
                     "$group": {
-                        "_id": "$crime_codes.crm_cd",  # Ομαδοποίηση κατά Crime Code
-                        "report_count": {"$sum": 1}  # Μέτρηση αναφορών
+                        "_id": "$crime_codes.crm_cd",  
+                        "report_count": {"$sum": 1} 
                     }
                 },
                 {
-                    "$sort": {"report_count": -1}  # Ταξινόμηση σε φθίνουσα σειρά
+                    "$sort": {"report_count": -1}  
                 }
             ]
 
-            results = list(crime_collection.aggregate(pipeline))
-            print(results)
+            results = list(db.crime_reports.aggregate(pipeline))
             return Response(results, status=200)
 
         except Exception as e:
