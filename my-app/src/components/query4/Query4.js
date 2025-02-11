@@ -1,60 +1,60 @@
 import './Query4.css';
 import React, { useState } from "react";
-import axios from "axios";
+import axios from 'axios';
 
 export default function Query4() {
-  const [isFormVisible, setIsFormVisible] = useState(false);
 
+  const [isFormVisible, setIsFormVisible] = useState(false); 
+
+  const [times, setTimes] = useState({
+    startTime: "",
+    endTime: "",
+  });
   const [results, setResults] = useState([]);
   const [error, setError] = useState(null);
 
   const toggleFormVisibility = () => {
-    setIsFormVisible((prev) => !prev);
+    setIsFormVisible((prev) => !prev); // Toggle Between Visibility and Invisibility
   };
-
-  const [dates, setDates] = useState({
-    startDate: "",
-    endDate: "",
-  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setDates((prevDates) => ({
-      ...prevDates,
+    setTimes((prevTimes) => ({
+      ...prevTimes,
       [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null); // Clearing previous errors.
+    setError(null); // Error Cleanup
+
     try {
       const response = await axios.get('http://127.0.0.1:8000/api/db_manager/query4/', {
         params: {
-          startDate: dates.startDate,
-          endDate: dates.endDate,
+          startTime: times.startTime,
+          endTime: times.endTime,
         },
       });
 
-      if (response.data.avg_number_of_crimes_per_hour) {
-          setResults([response.data]); // Store the scalar result as a single object
+      if (response.data.message) {
+        setError(response.data.message); // Display Message if No Data Exists
       } else {
-          setError("No data available for the given time range.");
+        setResults(response.data); // Display Results
       }
-
-
+      
     } catch (err) {
       setError(err.response?.data?.error || "An unexpected error occurred.");
     }
   };
 
   const handleReset = () => {
-  
-    setDates({
-      startDate: "",
-      endDate: "",
-    });
     
+    setTimes({
+      startTime: "",
+      endTime: "",
+    });
+  
     setResults([]);
     setIsFormVisible(false);
     setError(null);
@@ -63,41 +63,67 @@ export default function Query4() {
   return (
     <div className='query4'>
       <div className='query4Box'>
-        <div className='query4Up' onClick={toggleFormVisibility} style={{ cursor: 'pointer' }}>
-          <span className='query4Desc'>4.Find the average number of crimes occurred per hour (24 hours) for a specific date range.</span>
+      
+        <div
+          className='query4Up'
+          onClick={toggleFormVisibility}
+          style={{ cursor: 'pointer' }}
+        >
+          <span className='query4Desc'>
+            4. Find the two least common crimes committed with regards to a given time range.
+          </span>
         </div>
         <hr className='query4Line' />
+        {/* Display Table */}
         {isFormVisible && (
           <>
             <form className='query4Form' onSubmit={handleSubmit}>
+
               <div className='query4Middle'>
-              <div className='startDate'>
-                  <label htmlFor="startDate">Start Date</label>
-                  <input className='startDateInput' type="date" id="startDate" name="startDate" value={dates.startDate} onChange={handleChange} />
+                <div className='startTime'>
+                  <label htmlFor="startTime">Start Time</label>
+                  <input className='startTimeInput' type="time" id="startTime" name="startTime" value={times.startTime} onChange={handleChange} />
                 </div>
-                <div className='endDate'>
-                  <label htmlFor="endDate">End Date</label>
-                  <input className='endDateInput' type="date" id="endDate" name="endDate" value={dates.endDate} onChange={handleChange}/>
+                <div className='endTime'>
+                  <label htmlFor="endTime">End Time</label>
+                  <input className='endTimeInput' type="time" id="endTime" name="endTime" value={times.endTime} onChange={handleChange} />
                 </div>
               </div>
-
+  
               {!results.length > 0 &&(
-              <div className='query4Down'>
+                <div className='query4Down'>
                 <button type="submit" className='query4SubmitButton'>Submit</button>
-                </div>)}
-              
-              </form>
+              </div>)}
+
+            </form>
            
-          {error && <div className='query4Error'>{error}</div>}
-              {results.length > 0 && (
-                  <div className='query4Results'>
-                      <h6 className='query4ResultsTitle'>Average Number of Crimes Per Hour:</h6>
-                      <div className='Res4'>{results[0].avg_number_of_crimes_per_hour}</div>
-                  </div>
-              )}
-              {results.length > 0 && (
-                <button onClick={handleReset} className="query4SubmitButton">Reset</button>
-              )}
+            {error && <div className='query4Error'>{error}</div>}
+            {results.length > 0 && (
+              <div className='query4Results'>
+                <h4 className='query4ResultsTitle'>Results:</h4>
+                <div className="resultsTableWrapper">
+                  <table className="resultsTable">
+                    <thead>
+                      <tr>
+                        <th>Crime Code</th>
+                        <th>Report Count</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {results.map((result, index) => (
+                        <tr key={index}>
+                          <td>{Array.isArray(result._id) ? result._id.join(", ") : result._id}</td> {/* Handle both cases */}
+                          <td>{result.report_count}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+            {results.length > 0 && (
+              <button onClick={handleReset} className="query4SubmitButton">Reset</button>
+            )}
           </>
         )}
       </div>

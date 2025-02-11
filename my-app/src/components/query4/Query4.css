@@ -27,7 +27,9 @@
     padding-top: 50px;
 }
 
-.query4Up, .query4Down, .query4Middle {
+.query4Up,
+.query4Down,
+.query4Middle {
     flex: 1;
     display: flex;
     flex-direction: row;
@@ -47,7 +49,6 @@
     height: 1px;
     /* Thin line */
     background-color: #263238;
-    /* Light gray color */
     margin: 10px 0;
     /* Add spacing above and below the line */
     border: none;
@@ -61,22 +62,22 @@
     gap: 40px;
 }
 
-.startDate,
-.endDate {
+.startTime,
+.endTime {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.endDate,
-.startDate label {
+.endTime,
+.startTime label {
     font-size: 15px;
     font-weight: 700;
     color: #455a64;
 }
 
-.startDateInput,
-.endDateInput {
+.startTimeInput,
+.endTimeInput {
     height: 40px;
     width: 150px;
     border-radius: 10px;
@@ -109,12 +110,42 @@
     transform: translateY(0.1em);
 }
 
-.query4ResultsTitle {
-    color: #263238;
+.resultsTableWrapper {
+    width: 100%;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 20px;
+    border: 1px solid #263238;
+    margin-right: 90px;
 }
 
-.Res4{
-    color: #263238 ;
+.resultsTable {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.resultsTable th,
+.resultsTable td {
+    padding: 10px;
+    border: 1px solid #b0bec5;
+}
+
+.resultsTable td {
+    background-color: #78909c;
+}
+
+.resultsTable th {
+    background-color: #263238;
+    font-weight: bold;
+    text-transform: uppercase;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.query4ResultsTitle {
+    color: #263238;
 }
 
 .query4Error {
