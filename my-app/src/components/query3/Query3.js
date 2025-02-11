@@ -53,7 +53,7 @@ export default function Query3() {
     <div className='query3'>
       <div className='query3Box'>
         <div className='query3Up' onClick={toggleFormVisibility} style={{ cursor: 'pointer' }}>
-          <span className='query3Desc'>3. Find the three most common crimes committed –regardless of code 1, 2, 3, and 4– per areafor a specific day.</span>
+          <span className='query3Desc'>3. Find the three most common crimes committed –regardless of code 1, 2, 3, and 4– per area for a specific day.</span>
         </div>
         <hr className='query3Line' />
         {isFormVisible && (
@@ -81,14 +81,14 @@ export default function Query3() {
                   <table className="resultsTable">
                     <thead>
                       <tr>
-                        <th>Area Code</th>
+                        <th>Area</th>
                         <th>The most frequent crime</th>
                       </tr>
                     </thead>
                     <tbody>
                       {results.map((result, index) => (
                         <tr key={index}>
-                          <td>{result.area_name}</td>
+                          <td>{result.area}</td>
                           <td>{result.top_crimes.map((crime) => crime.crime_cd).join(", ")}</td>
                         </tr>
                       ))}
