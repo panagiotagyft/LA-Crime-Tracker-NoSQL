@@ -2,6 +2,7 @@ from pymongo import MongoClient
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+# Σύνδεση με MongoDB
 client = MongoClient("mongodb://localhost:27017/")
 db = client["NoSQL-LA-CRIME"]
 crime_collection = db["crime_reports"]
@@ -11,7 +12,9 @@ class Query5View(APIView):
         try:
             pipeline = [
                 {
-                    "$unwind": "$crime_codes" 
+                    "$addFields": {  
+                        "first_crime_code": { "$arrayElemAt": ["$crime_codes", 0] }
+                    }
                 },
                 {
                     "$match": {
@@ -21,15 +24,15 @@ class Query5View(APIView):
                 {
                     "$group": {
                         "_id": {
-                            "crime_cd": "$crime_codes.crm_cd",
+                            "crime_cd": "$first_crime_code.crm_cd",  
                             "weapon": "$weapon"
                         },
-                        "area_count": {"$addToSet": "$area"} 
+                        "areas": {"$addToSet": "$area"}  
                     }
                 },
                 {
                     "$match": {
-                        "area_count.1": {"$exists": True}  
+                        "areas.1": {"$exists": True}  
                     }
                 },
                 {
@@ -42,13 +45,15 @@ class Query5View(APIView):
                     "$project": {
                         "_id": 0,
                         "crime_cd": "$_id",
-                        "weapons": 1  
+                        "weapons": {"$setUnion": ["$weapons", []]}  
                     }
+                },
+                {
+                    "$sort": {"crime_cd": 1}  
                 }
             ]
 
             results = list(crime_collection.aggregate(pipeline))
-            print(results)
             return Response(results, status=200)
 
         except Exception as e:
