@@ -2,7 +2,6 @@ from pymongo import MongoClient
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-# Σύνδεση με MongoDB
 client = MongoClient("mongodb://localhost:27017/")
 db = client["NoSQL-LA-CRIME"]
 crime_collection = db["crime_reports"]
