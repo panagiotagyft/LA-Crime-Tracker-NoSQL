@@ -106,14 +106,12 @@ export default function Query4() {
                     <thead>
                       <tr>
                         <th>Crime Code</th>
-                        <th>Report Count</th>
                       </tr>
                     </thead>
                     <tbody>
                       {results.map((result, index) => (
                         <tr key={index}>
                           <td>{Array.isArray(result._id) ? result._id.join(", ") : result._id}</td> {/* Handle both cases */}
-                          <td>{result.report_count}</td>
                         </tr>
                       ))}
                     </tbody>
