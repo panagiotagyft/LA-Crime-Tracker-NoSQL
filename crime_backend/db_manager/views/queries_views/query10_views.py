@@ -21,7 +21,7 @@ class Query10View(APIView):
                 }
             },
             { "$unwind": "$crime_info" },
-            { "$group": { "_id": "$crime_info.area" } }
+            { "$group": { "_id": "$crime_info.area.area_name" } }
         ]      
 
         try:

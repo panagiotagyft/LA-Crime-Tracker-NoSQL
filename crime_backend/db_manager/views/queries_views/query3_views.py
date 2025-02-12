@@ -21,7 +21,7 @@ class Query3View(APIView):
                 {
                     "$group": {
                         "_id": {
-                            "area": "$area",
+                            "area": "$area.area_name",
                             "crime_cd": "$crime_codes.crm_cd"
                         },
                         "count": { "$sum": 1 } 

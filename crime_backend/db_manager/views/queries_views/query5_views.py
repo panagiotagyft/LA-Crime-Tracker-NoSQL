@@ -27,7 +27,7 @@ class Query5View(APIView):
                             "crime_cd": "$first_crime_code.crm_cd",  
                             "weapon": "$weapon"
                         },
-                        "areas": {"$addToSet": "$area"}  
+                        "areas": {"$addToSet": "$area.area_name"}  
                     }
                 },
                 {

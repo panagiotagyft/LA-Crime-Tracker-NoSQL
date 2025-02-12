@@ -29,7 +29,7 @@ class Query2View(APIView):
             # Aggregation query
             pipeline = [
                 {"$match": {
-                    "crime_codes.crm_cd": 250,
+                    "crime_codes.crm_cd": crime_code,
                     "timestamp.time_occ": {"$gte": start_time, "$lte": end_time}
                 }},
                 {"$group": {

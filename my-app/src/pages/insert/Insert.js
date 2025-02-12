@@ -25,14 +25,12 @@ export default function Insert() {
         CrmCd2: "",
         CrmCd3: "",
         CrmCd4: "",
-        WeaponUsedCd: "",
-        WeaponDesc: "",
+        WeaponUsed: "",
         Location: "",
         Latitude: "",
         Longitude: "",
         CrossStreet: "",
         Status: "",
-        StatusDesc: "",
         RptDistNo: "",
         Mocodes: "",
         VictAge: "",
@@ -55,8 +53,6 @@ export default function Insert() {
         AreaDesc: false,
         Crime_codeDesc: false,
         PremisesDesc: false,
-        WeaponDesc: false,
-        StatusDesc: false,
     });
 
     const [isCustomCode, setIsCustomCode] = useState({
@@ -107,8 +103,6 @@ export default function Insert() {
             "Area": "AreaDesc",
             "Crime_code": "Crime_codeDesc",
             "Premises": "PremisesDesc",
-            "Weapon": "WeaponDesc",
-            "Status": "StatusDesc",
         };
 
         const codeKey = codeKeyMap[type];
@@ -243,14 +237,12 @@ export default function Insert() {
                     CrmCd2: "",
                     CrmCd3: "",
                     CrmCd4: "",
-                    WeaponUsedCd: "",
-                    WeaponDesc: "",
+                    WeaponUsed: "",
                     Location: "",
                     Latitude: "",
                     Longitude: "",
                     CrossStreet: "",
                     Status: "",
-                    StatusDesc: "",
                     RptDistNo: "",
                     Mocodes: "",
                     VictAge: "",
@@ -602,15 +594,15 @@ export default function Insert() {
                     <div className="formRow">
                         {/* --- Weapon Used Code --- */}
                         <div className="formField">
-                            <label htmlFor="WeaponUsedCd">Weapon Used Code</label>
+                            <label htmlFor="WeaponUsedCd">Weapon Used</label>
                             <select
-                                id="WeaponUsedCdSelect"
-                                name="WeaponUsedCdSelect"
-                                value={isCustomCode.Weapon ? "custom" : formData.WeaponUsedCd}
+                                id="WeaponUsedSelect"
+                                name="WeaponUsedSelect"
+                                value={isCustomCode.Weapon ? "custom" : formData.WeaponUsed}
                                 onFocus={() => handleFocus("weapons")}
                                 onChange={(e) => handleCodeChange(e, "Weapon")}
                             >
-                                <option value="">Select Weapon Used Code</option>
+                                <option value="">Select Weapon Used</option>
                                 {options.weapons.map((code, index) => (
                                     <option key={index} value={code}>{code}</option>
                                 ))}
@@ -619,36 +611,42 @@ export default function Insert() {
                             {isCustomCode.Weapon && (
                                 <input
                                     type="text"
-                                    name="WeaponUsedCd"
-                                    placeholder="Enter new Weapon Used Code"
-                                    value={formData.WeaponUsedCd}
+                                    name="WeaponUsed"
+                                    placeholder="Enter new Weapon Used"
+                                    value={formData.WeaponUsed}
                                     onChange={handleChange}
                                 />
                             )}
                         </div>
 
-                        {/* --- Weapon Description --- */}
+                        {/* --- Status Code --- */}
                         <div className="formField">
-                            <label htmlFor="WeaponDesc">Weapon Description</label>
-                            {(editableFields.WeaponDesc || isCustomCode.Weapon) ? (
+                            <label htmlFor="Status">Status</label>
+                            <select
+                                id="StatusSelect"
+                                name="StatusSelect"
+                                value={isCustomCode.Status ? "custom" : formData.Status}
+                                onFocus={() => handleFocus("statuses")}
+                                onChange={(e) => handleCodeChange(e, "Status")}
+                            >
+                                <option value="">Select Status</option>
+                                {options.statuses.map((code, index) => (
+                                    <option key={index} value={code}>{code}</option>
+                                ))}
+                                <option value="custom">Other (Add New)</option>
+                            </select>
+
+                            {isCustomCode.Status && (
                                 <input
                                     type="text"
-                                    id="WeaponDesc"
-                                    name="WeaponDesc"
-                                    placeholder="Enter new Weapon Description"
-                                    value={formData.WeaponDesc}
+                                    name="Status"
+                                    placeholder="Enter new Status"
+                                    value={formData.Status}
                                     onChange={handleChange}
-                                />
-                            ) : (
-                                <input
-                                    type="text"
-                                    id="WeaponDesc"
-                                    name="WeaponDesc"
-                                    value={formData.WeaponDesc}
-                                    readOnly
                                 />
                             )}
                         </div>
+                        
                     </div>
 
                     <div className="formRow">
@@ -695,60 +693,6 @@ export default function Insert() {
                         />
                     </div>
                     </div>
-
-                    <div className="formRow">
-                        {/* --- Status Code --- */}
-                        <div className="formField">
-                            <label htmlFor="Status">Status</label>
-                            <select
-                                id="StatusSelect"
-                                name="StatusSelect"
-                                value={isCustomCode.Status ? "custom" : formData.Status}
-                                onFocus={() => handleFocus("statuses")}
-                                onChange={(e) => handleCodeChange(e, "Status")}
-                            >
-                                <option value="">Select Status</option>
-                                {options.statuses.map((code, index) => (
-                                    <option key={index} value={code}>{code}</option>
-                                ))}
-                                <option value="custom">Other (Add New)</option>
-                            </select>
-
-                            {isCustomCode.Status && (
-                                <input
-                                    type="text"
-                                    name="Status"
-                                    placeholder="Enter new Status"
-                                    value={formData.Status}
-                                    onChange={handleChange}
-                                />
-                            )}
-                        </div>
-
-                        {/* --- Status Description --- */}
-                        <div className="formField">
-                            <label htmlFor="StatusDesc">Status Description</label>
-                            {(editableFields.StatusDesc || isCustomCode.Status) ? (
-                                <input
-                                    type="text"
-                                    id="StatusDesc"
-                                    name="StatusDesc"
-                                    placeholder="Enter new Status Description"
-                                    value={formData.StatusDesc}
-                                    onChange={handleChange}
-                                />
-                            ) : (
-                                <input
-                                    type="text"
-                                    id="StatusDesc"
-                                    name="StatusDesc"
-                                    value={formData.StatusDesc}
-                                    readOnly
-                                />
-                            )}
-                        </div>
-                    </div>
-
 
                     <div className="formRow">
                     <div className="formField">
