@@ -39,7 +39,7 @@
 .query8Desc {
     font-size: 15px;
     font-weight: 700;
-    margin-top: -20px;
+    margin-top: -10px;
     color: #455a64;
 }
 
@@ -50,46 +50,9 @@
     /* Thin line */
     background-color: #263238;
     /* Light gray color */
-    /* margin: 10px 0; */
+    margin: 10px 0;
     /* Add spacing above and below the line */
     border: none;
-}
-
-.query8Form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: -10px;
-    gap: 40px;
-}
-
-.startDate,
-.endDate,
-.crmCDquery8 {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.endDate,
-.startDate,
-.crmCDquery8 label {
-    font-size: 15px;
-    font-weight: 700;
-    color: #455a64;
-}
-
-.startDateInput,
-.endDateInput,
-.crmCDquery8Input {
-    height: 40px;
-    width: 150px;
-    border-radius: 10px;
-    border: none;
-    background-color: white;
-    color: #455a64;
-    font-size: 15px;
-    font-weight: 800;
 }
 
 .query8SubmitButton {
