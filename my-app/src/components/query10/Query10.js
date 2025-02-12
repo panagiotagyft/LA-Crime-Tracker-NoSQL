@@ -14,7 +14,7 @@ export default function Query10() {
   };
   
   const [options, setOptions] = useState({
-      crime_codes: [],
+      office_name: [],
    });
 
   const fetchOptions = (type) => {
@@ -37,12 +37,9 @@ export default function Query10() {
       }
   };
     
-  const handleCategoryChange = (e) => {
-    setCategory(e.target.value);
-    };
 
   const [code, setCode] = useState({
-    crime_code: ""
+    office_name: ""
   });
 
   const handleChange = (e) => {
@@ -53,7 +50,6 @@ export default function Query10() {
     }));
   };
   
-  const [category, setCategory] = useState("area_name"); // Default
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -62,10 +58,10 @@ export default function Query10() {
     try {
       const response = await axios.get('http://127.0.0.1:8000/api/db_manager/query10/', {
         params: {
-          type: category, // Send the selected category as the type
-          crmCd: code.crime_code,
+          officer_name: code.office_name, // Χρησιμοποιούμε το σωστό όνομα παραμέτρου
         },
       });
+
 
       if (response.data.message) {
         setError(response.data.message);
@@ -79,9 +75,8 @@ export default function Query10() {
 
   const handleReset = () => {
     setCode({
-      crime_code: "",
+      office_name: "",
     });
-    setCategory("area_name"); // Reset the dropdown to its default value
     setResults([]);
     setIsFormVisible(false);
     setError(null);
@@ -91,34 +86,27 @@ export default function Query10() {
     <div className="query10">
           <div className="query10Box">
         <div className='query10Up' onClick={toggleFormVisibility} style={{ cursor: 'pointer' }}>
-          <span className='query10Desc'>10. Find the area with the longest time range without an occurrence of a specific crime. Include the time range in the results. The same for Rpt Dist No.</span>
+          <span className='query10Desc'>10.  Find all areas for which a given name has casted a vote for a report involving it.</span>
         </div>
         <hr className='query10Line' />
      {isFormVisible && (
         <>
         <form className="query10Form" onSubmit={handleSubmit}>
             <div className='query10Middle'>
-                <div className="query10Category">
-                    <label htmlFor="category">Select Category</label>
-                    <select id="category" value={category} onChange={handleCategoryChange}>
-                        <option value="area_name">Area</option>
-                        <option value="rpt_dist_no">Rpt Dist No</option>
-                    </select>
-                </div>
 
                 <div className="query10CspecificCrime">
-                    <label htmlFor="specificCrime">Specific Crime</label>
+                    <label htmlFor="specificCrime">Specific Office Name</label>
                     <select
                     className="crmCDquery10Input"
                     id="crmCDquery10Input"
-                    name="crime_code"
-                    placeholder="Select a Crime Code"
-                    value={code.crime_code}
-                    onFocus={() => handleFocus("crime_codes")}
+                    name="office_name"
+                    placeholder="Select a Office Name"
+                    value={code.office_name}
+                    onFocus={() => handleFocus("office_name")}
                     onChange={handleChange}>
                     
-                    <option value="" disabled>Select a Crime Code</option>
-                    {options.crime_codes?.map((code, index) => (
+                    <option value="" disabled>Select a Office Name</option>
+                    {options.office_name?.map((code, index) => (
                       <option key={index} value={code}>{code}</option>
                     ))}
                   </select>
@@ -140,21 +128,14 @@ export default function Query10() {
                   <table className="resultsTable">
                     <thead>
                       <tr>
-                        {category === "area_name" && <th>Area Name</th>}
-                        {category === "rpt_dist_no" && <th>Rpt Dist No</th>}
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Gap</th>
+                        <th>Area</th>
                       </tr>
                     </thead>
                     <tbody>
                       {results.map((result, index) => (
                         <tr key={index}>
-                          {category === "area_name" && <td>{result["area_name"]}</td>}
-                          {category === "rpt_dist_no" && <td>{result["rpt_dist_no"]}</td>}
-                          <td>{result["start_date"]}</td>
-                          <td>{result["end_date"]}</td>
-                          <td>{result["gap"]}</td>
+                          {/* <td>{Array.isArray(result._id) ? result._id.join(", ") : result._id}</td> Handle both cases */}
+                          <td>{result._id}</td>
                         </tr>
                       ))}
                     </tbody>

@@ -64,32 +64,18 @@
     align-items: flex-start;
 }
 
-.query10Category,
 .query10CspecificCrime{
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.query10Category label,
 .query10CspecificCrime label {
     font-size: 15px;
     font-weight: 700;
     color: #455a64;
 }
 
-.query10Category select
-{
-    height: 40px;
-    width: 200px;
-    border-radius: 10px;
-    border: none;
-    background-color: white;
-    color: #455a64;
-    font-size: 15px;
-    font-weight: 800;
-    padding: 5px 10px;
-}
 
 .crmCDquery10Input {
     height: 40px;
