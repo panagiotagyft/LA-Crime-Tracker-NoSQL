@@ -45,7 +45,7 @@ export default function Query9() {
       <div className='query9Box'>
         
         <div className='query9Up' onClick={toggleFormVisibility} style={{ cursor: 'pointer' }}>
-          <span className='query9Desc'>9. Find the most common type of weapon used against victims depending on their group of age.The age groups are formed by bucketing ages every 5 years.</span>
+          <span className='query9Desc'>9.  Find all reports for which the same e-mail has been used for more than one badge numbers when casting an upvote.</span>
         </div>
 
         <hr className='query9Line' />
@@ -65,20 +65,37 @@ export default function Query9() {
                   <table className="resultsTable2">
                     <thead>
                       <tr>
-                        <th>Age Group</th>
-                        <th>Most common weapon</th>
-                        <th>Occurrence Count</th>
+                        <th>Email</th>
+                        <th>Badge Numbers</th>
+                        <th>DR_NO List</th>
                       </tr>
                     </thead>
                     <tbody>
                       {results.map((result, index) => (
                         <tr key={index}>
-                          <td>{result["Age Group"]}</td>
-                          <td>{result["Most common weapon"]}</td>
-                          <td>{result["Occurrence Count"]}</td>
+                          {/* Εμφάνιση email */}
+                          <td>{result.email}</td>
+
+                          {/* Εμφάνιση uniqueBadgeNumbers με κόμματα */}
+                          <td>{Array.isArray(result.uniqueBadgeNumbers) ? result.uniqueBadgeNumbers.join(", ") : result.uniqueBadgeNumbers}</td>
+
+                          {/* Εμφάνιση allDrNos κάθετα */}
+                          <td style={{ 
+                            minWidth: "150px",
+                            maxHeight: "250px",  // Περιορισμός ύψους
+                            overflowY: "auto",  // Κάθετη κύλιση
+                            display: "block"  // Επιτρέπει το overflow να λειτουργήσει σωστά
+                          }}>
+                            <ul style={{ margin: 0, padding: 0 }}>
+                              {Array.isArray(result.allDrNos) ? result.allDrNos.slice(0, 50).map((dr_no, i) => (  // Περιορίζουμε σε 50 για εμφάνιση
+                                <li key={i} style={{ listStyleType: "none" }}>{dr_no}</li>
+                              )) : <li>{result.allDrNos}</li>}
+                            </ul>
+                          </td>
                         </tr>
                       ))}
                     </tbody>
+
                   </table>
                 </div>
               </div>

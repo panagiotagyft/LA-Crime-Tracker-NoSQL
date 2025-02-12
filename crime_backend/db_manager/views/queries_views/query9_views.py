@@ -1,44 +1,39 @@
-from django.db import connection 
+from pymongo import MongoClient
 from rest_framework.views import APIView
 from rest_framework.response import Response
+
+client = MongoClient("mongodb://localhost:27017/")
+db = client["NoSQL-LA-CRIME"]
 
 class Query9View(APIView):
     def get(self, request):
 
-        try:
-            
-            with connection.cursor() as cursor:
+        pipeline = [
+            { "$unwind": "$votes" },
+            {
+                "$group": {
+                    "_id": "$email",
+                    "uniqueBadgeNumbers": { "$addToSet": "$badge_number" },
+                    "allDrNos": { "$push": "$votes" }
+                }
+            },
+            {
+                "$match": { "uniqueBadgeNumbers.1": { "$exists": True } } # If there are at least 2 badge_numbers
+            },
+            {
+                "$project": {
+                    "_id": 0,
+                    "email": "$_id",
+                    "uniqueBadgeNumbers": 1,
+                    "allDrNos": 1
+                }
+            }
+        ]
 
-                sql="""
-                    WITH WeaponFrequency AS (
-                        SELECT 
-                            FLOOR(v.vict_age / 5) * 5 AS age_group,
-                            w.weapon_cd,
-                            w.weapon_desc,
-                            COUNT(*) AS frequency
-                        FROM victim v
-                        JOIN Crime_report cr ON v.dr_no = cr.dr_no
-                        JOIN Weapon w ON cr.weapon_cd = w.weapon_cd
-                        WHERE v.vict_age IS NOT NULL AND v.vict_age > 0
-                            AND w.weapon_cd > 0
-                        GROUP BY age_group, w.weapon_cd, w.weapon_desc
-                    )
-                    SELECT DISTINCT ON (age_group) 
-                        age_group, 
-                        weapon_cd, 
-                        weapon_desc, 
-                        frequency
-                    FROM WeaponFrequency
-                    ORDER BY age_group, frequency DESC;
-                """
-                cursor.execute(sql)
-                rows = cursor.fetchall()
-                
-            if not rows:  # Check if the list is empty.
-                return Response({"message": "No data available for the given time range."}, status=200)
-            
-            # Formatting results in JSON.
-            results = [{"Age Group": row[0], "Most common weapon": row[1], "Occurrence Count": row[2]} for row in rows]
+        try:
+            results = list(db.upvotes.aggregate(pipeline))
+            for doc in results:
+                print(doc)
             return Response(results, status=200)
         
         except Exception as e:
