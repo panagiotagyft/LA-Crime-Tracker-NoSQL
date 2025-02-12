@@ -6,20 +6,25 @@
 
 .query6Box {
     width: 50%;
-    height: auto;
+    height: 40%;
     padding: 20px;
     background: rgba(255, 255, 255, 0.744);
+    /* Semi-transparent background */
     border-radius: 15px;
+    /* Rounded corners */
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    /* Shadow for depth */
     backdrop-filter: blur(10px);
+    /* Blur effect on the background */
     border: 1px solid rgba(255, 255, 255, 0.3);
-    color: #455a64;
+    /* Subtle border */
+    color: #fff;
     text-align: center;
     display: flex;
     flex-direction: column;
     gap: 20px;
     align-items: center;
-    padding-top: 30px;
+    padding-top: 50px;
 }
 
 .query6Up,
@@ -54,38 +59,27 @@
     gap: 40px;
 }
 
-.categorySelect,
-.startDate,
-.endDate,
-.rptDistInput {
+.selectDate {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    align-items: flex-start;
 }
 
-.DateBoxQuery6{
-    display: flex;
-    flex-direction: row;
-    gap: 30px;
-    align-items: flex-start;
-}
-.categorySelect label, .startDate label, .endDate label {
+.selectDate label {
     font-size: 15px;
     font-weight: 700;
     color: #455a64;
 }
 
-.categorySelect select, .startDateInput, .endDateInput {
+.dateInput {
     height: 40px;
-    width: 200px;
+    width: 150px;
     border-radius: 10px;
     border: none;
     background-color: white;
     color: #455a64;
     font-size: 15px;
     font-weight: 800;
-    padding: 5px 10px;
 }
 
 .query6SubmitButton {
