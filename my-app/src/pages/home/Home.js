@@ -13,7 +13,6 @@ export default function Home() {
     { label: 'Queries', path: '/queries' },
     { label: 'Insert', path: '/insert' },
     { label: 'Updates', path: '/updates' },
-    { label: 'Search', path: '/search' },
   ]; 
 
   const handleOptionClick = (path) => {

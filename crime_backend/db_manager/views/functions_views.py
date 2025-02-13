@@ -28,29 +28,15 @@ class DropdownOptionsView(APIView):
 
             elif option_type == "premises":
                 data_list = db.crime_reports.distinct("premises.premis_cd")
-
-            elif option_type == "weapons":
-                data_list = db.crime_reports.distinct("weapon")
-
-            elif option_type == "statuses":
-                data_list = db.crime_reports.distinct("status")
-
-            elif option_type == "rpt_dists":
-                data_list = db.crime_reports.distinct("rpt_dist_no")
-
-            elif option_type == "victims_sex":
-                data_list = db.crime_reports.distinct("victim.sex")
-
-            elif option_type == "victims_descent":
-                data_list = db.crime_reports.distinct("victim.descent")
                 
             elif option_type == "office_name":
                 data_list = db.upvotes.distinct("name")
+
+            elif option_type == "badge_numbers":
+                data_list = db.upvotes.distinct("badge_number")
             else:
                 return Response({"error": "Invalid option type"}, status=status.HTTP_400_BAD_REQUEST)
-
-            # data_list = sorted(data_list)  # Ταξινόμηση
-            print(data_list)
+            
             return Response({option_type: data_list}, status=status.HTTP_200_OK)
 
         except Exception as e:
@@ -96,6 +82,11 @@ class GetCodeDescriptionView(APIView):
                 if result and "premises" in result:
                     description = result["premises"]["premis_desc"]
 
+            elif table_name == "Premises":
+                query = {"premises.premis_cd": int(code_value)}
+                result = db.crime_reports.find_one(query, {"premises.premis_desc": 1, "_id": 0})
+                if result and "premises" in result:
+                    description = result["premises"]["premis_desc"]
             else:
                 return Response({"error": "Invalid table name"}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -107,24 +98,48 @@ class GetCodeDescriptionView(APIView):
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+class GetUserDetailsView(APIView):
+    def get(self, request):
+        badge_number = request.query_params.get("badge_number")
+
+        if not badge_number:
+            return Response({"error": "Badge number is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        client = MongoClient("mongodb://localhost:27017/")
+        db = client["NoSQL-LA-CRIME"]
+
+        user = db.upvotes.find_one(
+            {"badge_number": str(badge_number)},
+            {"_id": 0, "name": 1, "email": 1}
+        )
+
+        if user:
+            return Response(user, status=status.HTTP_200_OK)
+        else:
+            return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+
+
 
 class SearchDRNumbersView(APIView):
     def get(self, request):
         query = request.query_params.get("query", "").strip()
 
-        if not query:
+        if not query.isdigit():  # Αν το query δεν είναι αριθμός, επιστρέφουμε κενό
             return Response({"dr_numbers": []}, status=status.HTTP_200_OK)
 
         client = MongoClient("mongodb://localhost:27017/")
         db = client["NoSQL-LA-CRIME"]
 
         try:
-            results = db.crime_reports.find(
-                {"dr_no": {"$regex": query, "$options": "i"}},  # Αναζήτηση με regex
-                {"dr_no": 1}
-            ).limit(50)
+            results = db.crime_reports.aggregate([
+                {"$project": {"dr_no_str": {"$toString": "$dr_no"}, "dr_no": 1}},  # Μετατροπή dr_no σε string
+                {"$match": {"dr_no_str": {"$regex": f"^{query}"}}},  # Regex αναζήτηση
+                {"$limit": 50},
+                {"$project": {"dr_no": 1}}  # Επιστρέφουμε τον κανονικό ακέραιο dr_no
+            ])
 
             dr_numbers = [result["dr_no"] for result in results]
+            print(dr_numbers)
             return Response({"dr_numbers": dr_numbers}, status=status.HTTP_200_OK)
 
         except Exception as e:
@@ -179,8 +194,9 @@ class GenerateDRNOView(APIView):
 
 class GetRecordByDRNOView(APIView):
     def get(self, request):
-        dr_no = request.query_params.get("dr_no", None)
 
+        dr_no = request.query_params.get("dr_no", None)
+        print(dr_no)
         if not dr_no:
             return Response({"error": "DR_NO is required"}, status=400)
 

@@ -1,5 +1,5 @@
 .updates {
-    height: 210vh;
+    height: 100vh;
     background: linear-gradient(#eceff1, #37474f);
     display: flex;
     justify-content: center;
@@ -93,7 +93,7 @@
     background-color: white;
     border: 1px solid #ccc;
     max-height: 200px;
-    width: 10%;
+    width: 40%;
     overflow-y: auto;
     list-style-type: none;
 }

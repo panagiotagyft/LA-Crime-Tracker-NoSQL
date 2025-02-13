@@ -12,7 +12,7 @@ from .views.queries_views.query9_views import Query9View
 from .views.queries_views.query10_views import Query10View
 
 
-from .views.functions_views import DropdownOptionsView, GetCodeDescriptionView, GenerateDRNOView, GetRecordByDRNOView, SearchDRNumbersView
+from .views.functions_views import DropdownOptionsView, GetCodeDescriptionView, GenerateDRNOView, GetRecordByDRNOView, SearchDRNumbersView, GetUserDetailsView
 from .views.insert_views import InsertView
 from .views.update_views import UpdateView
 from .views.search_views import SearchView
@@ -36,7 +36,8 @@ urlpatterns = [
     path('generate-drno/', GenerateDRNOView.as_view(), name='generate-drno'),
     path('get-record/', GetRecordByDRNOView.as_view(), name='get-record'),
     path('search-dr-numbers/', SearchDRNumbersView.as_view(), name='search-dr-numbers'),
-   
+    path('get-user-details/', GetUserDetailsView.as_view(), name='get-user-details'),
+
     # updates & insert & search
     path('insert-record/', InsertView.as_view(), name='insert-record'),
     path('update-record/', UpdateView.as_view(), name='update-record'),
