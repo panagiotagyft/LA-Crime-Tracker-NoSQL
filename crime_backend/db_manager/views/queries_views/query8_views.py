@@ -16,7 +16,7 @@ class Query8View(APIView):
                     "localField": "votes",
                     "foreignField": "dr_no",
                     "pipeline": [
-                        { "$project": { "area": 1, "_id": 0 } }  
+                        { "$project": { "area_id": "$area.area_id", "_id": 0 } }  
                     ],
                     "as": "joined"
                 }
@@ -28,7 +28,7 @@ class Query8View(APIView):
                         "officerName": "$name",
                         "badgeNumber": "$badge_number"
                     },
-                    "distinctAreas": { "$addToSet": "$joined.area" }  
+                    "distinctAreas": { "$addToSet": "$joined.area_id" }  
                 }
             },
             {
