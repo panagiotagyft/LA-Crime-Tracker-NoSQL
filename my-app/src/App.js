@@ -37,7 +37,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/updates",
+    path: "/upvoting",
     element: (
       <ProtectedRoute>
         <Updates />

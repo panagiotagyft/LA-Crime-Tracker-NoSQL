@@ -112,11 +112,12 @@
 }
 
 .resultsTableWrapper {
-    min-width: 105%;
-    max-height: 400px;
-    overflow-y: auto;
-    border: 1px solid #263238;
-    margin-left: 100px;
+    min-width: 100%;
+        max-height: 400px;
+        overflow-y: auto;
+        margin-top: 20px;
+        border: 1px solid #263238;
+        margin-right: 90px;
 }
 
 .resultsTable {

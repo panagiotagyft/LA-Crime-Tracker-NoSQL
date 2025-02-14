@@ -12,7 +12,7 @@ export default function Home() {
   const textOptions = [
     { label: 'Queries', path: '/queries' },
     { label: 'Insert', path: '/insert' },
-    { label: 'Updates', path: '/updates' },
+    { label: 'Upvoting', path: '/upvoting' },
   ]; 
 
   const handleOptionClick = (path) => {
