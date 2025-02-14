@@ -124,8 +124,8 @@ export default function Query10() {
             {results.length > 0 && (
               <div className="query10Results">
                 <h4 className="query10ResultsTitle">Results:</h4>
-                <div className="resultsTableWrapper">
-                  <table className="resultsTable">
+                <div className="resultsTableWrapper10">
+                  <table className="resultsTable10">
                     <thead>
                       <tr>
                         <th>Area</th>
