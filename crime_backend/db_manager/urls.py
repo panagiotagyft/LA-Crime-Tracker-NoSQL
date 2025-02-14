@@ -14,7 +14,7 @@ from .views.queries_views.query10_views import Query10View
 
 from .views.functions_views import DropdownOptionsView, GetCodeDescriptionView, GenerateDRNOView, GetRecordByDRNOView, SearchDRNumbersView, GetUserDetailsView
 from .views.insert_views import InsertView
-from .views.update_views import UpdateView
+from .views.upvoting_views import UpvotingView
 from .views.search_views import SearchView
 
 urlpatterns = [
@@ -40,6 +40,6 @@ urlpatterns = [
 
     # updates & insert & search
     path('insert-record/', InsertView.as_view(), name='insert-record'),
-    path('update-record/', UpdateView.as_view(), name='update-record'),
+    path('upvoting/', UpvotingView.as_view(), name='upvoting'),
     path('search/', SearchView.as_view(), name='search'),
 ]

@@ -1,4 +1,4 @@
-.updates {
+.upvoting {
     height: 100vh;
     background: linear-gradient(#eceff1, #37474f);
     display: flex;
@@ -7,7 +7,7 @@
     flex-direction: column;
 }
 
-.updatesFormContainer {
+.upvotingFormContainer {
     width: 100%;
     padding-top: 10px;
     display: flex;
@@ -15,7 +15,7 @@
     align-items: center;
 }
 
-.updatesTitle {
+.upvotingTitle {
     padding-top: 20px;
     color: #455a64;
     font-weight: 1000;
@@ -23,7 +23,7 @@
     padding-right: 800px;
 }
 
-.updatesForm {
+.upvotingForm {
     width: 80%;
     padding: 20px;
     background: white;

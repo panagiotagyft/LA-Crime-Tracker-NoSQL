@@ -1,9 +1,9 @@
-import './Updates.css';
+import './Upvoting.css';
 import React, { useState } from "react";
 import axios from "axios";
 import UserNavbar from '../../components/navbar/UserNavbar'; 
 
-export default function Updates() {
+export default function Upvoting() {
 
     const userEmail = 'user@example.com';
 
@@ -123,11 +123,11 @@ export default function Updates() {
     };
 
     return (
-        <div className="updates">
+        <div className="upvoting">
             <UserNavbar userEmail={userEmail} onLogout={handleLogout} />
-                <h2 className='updatesTitle'>Upvoting</h2>
-                <div className="updatesFormContainer">
-                <form className="updatesForm" onSubmit={handleSubmit}>
+                <h2 className='upvotingTitle'>Upvoting</h2>
+                <div className="upvotingFormContainer">
+                <form className="upvotingForm" onSubmit={handleSubmit}>
 
                 <div className="formRow">
                     <div className="formField">

@@ -5,7 +5,7 @@ import Register from './pages/register/Register';
 import Home from './pages/home/Home';
 import Queries from './pages/queries/Queries';
 import Insert from './pages/insert/Insert';
-import Updates from './pages/updates/Updates';
+import Upvoting from './pages/upvoting/Upvoting';
 import ProtectedRoute from './context/ProtectedRoute'; 
 
 const router = createBrowserRouter([
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
     path: "/upvoting",
     element: (
       <ProtectedRoute>
-        <Updates />
+        <Upvoting />
       </ProtectedRoute>
     ),
   },
