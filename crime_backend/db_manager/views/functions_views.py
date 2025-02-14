@@ -100,6 +100,7 @@ class GetCodeDescriptionView(APIView):
 
 class GetUserDetailsView(APIView):
     def get(self, request):
+        print("he")
         badge_number = request.query_params.get("badge_number")
 
         if not badge_number:
@@ -109,7 +110,7 @@ class GetUserDetailsView(APIView):
         db = client["NoSQL-LA-CRIME"]
 
         user = db.upvotes.find_one(
-            {"badge_number": str(badge_number)},
+            {"badge_number": int(badge_number)},
             {"_id": 0, "name": 1, "email": 1}
         )
 
