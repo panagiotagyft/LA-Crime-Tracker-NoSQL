@@ -6,7 +6,7 @@ from rest_framework import status
 client = MongoClient("mongodb://localhost:27017/")
 db = client["NoSQL-LA-CRIME"]
 
-class UpvotinfView(APIView):
+class UpvotingView(APIView):
     def post(self, request):
         badge_number = request.data.get("BADGE_NO")
         dr_no = request.data.get("DR_NO")
