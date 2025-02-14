@@ -16,7 +16,7 @@ class UpvotingView(APIView):
 
         try:
             # Retrieve the officer's votes from the 'upvotes' collection
-            officer = db.upvotes.find_one({"badge_number": str(badge_number)}, {"_id": 0, "votes": 1})
+            officer = db.upvotes.find_one({"badge_number": int(badge_number)}, {"_id": 0, "votes": 1})
 
             if officer:
                 votes = officer.get("votes", [])
@@ -27,7 +27,7 @@ class UpvotingView(APIView):
 
                 # Add the new dr_no to the votes list
                 db.upvotes.update_one(
-                    {"badge_number": str(badge_number)},
+                    {"badge_number": int(badge_number)},
                     {"$push": {"votes": dr_no}}
                 )
 

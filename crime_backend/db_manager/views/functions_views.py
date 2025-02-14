@@ -28,7 +28,23 @@ class DropdownOptionsView(APIView):
 
             elif option_type == "premises":
                 data_list = db.crime_reports.distinct("premises.premis_cd")
-                
+            
+            elif option_type == "weapons":
+                data_list = db.crime_reports.distinct("weapon")
+
+            elif option_type == "statuses":
+                data_list = db.crime_reports.distinct("status")
+
+            elif option_type == "rpt_dists":
+                data_list = db.crime_reports.distinct("rpt_dist_no")
+
+            elif option_type == "victims_sex":
+                data_list = db.crime_reports.distinct("victim.sex")
+
+
+            elif option_type == "victims_descent":
+                data_list = db.crime_reports.distinct("victim.descent")
+
             elif option_type == "office_name":
                 data_list = db.upvotes.distinct("name")
 
