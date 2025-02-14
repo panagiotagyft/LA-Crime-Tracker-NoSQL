@@ -49,5 +49,4 @@
 
 ---
 
-### Diagram Representation
 
