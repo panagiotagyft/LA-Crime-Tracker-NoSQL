@@ -30,6 +30,7 @@
   - `location` (String) - Address
   - `lat` (Float) - Latitude
   - `lon` (Float) - Longitude
+  - `cross_street` (String) - Longitude
 - `upvote_count` (Integer) - Number of upvotes received
 
 ### `upvotes`
