@@ -71,7 +71,6 @@ export default function Upvoting() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Changes to be updated:", changesLog);
 
         const payload = {
             DR_NO: formData.DR_NO, // DR_NO submission
@@ -79,9 +78,9 @@ export default function Upvoting() {
             ...changesLog,         // Other changes
         };
 
-        axios.post("http://127.0.0.1:8000/api/db_manager/update-record/", payload)
+        axios.post("http://127.0.0.1:8000/api/db_manager/upvoting/", payload)
             .then((response) => {
-                alert("Update successful");  // Show success alert
+                alert("Upvoting successful");  // Show success alert
 
                 // Clear form data after clicking OK
                 setFormData({
@@ -95,7 +94,7 @@ export default function Upvoting() {
 
             })
             .catch((error) => {
-                console.error("Error during update:", error);
+                console.error("Error during upvoting:", error);
 
                 // Check if the error response contains "DR_NO already voted by this officer"
                 if (error.response && error.response.data.error === "DR_NO already voted by this officer") {
